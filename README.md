@@ -128,22 +128,6 @@ Open **http://localhost:5173/dashboard**.
 
 ---
 
-## How to Evaluate This Project in 3 Minutes
-
-If you are a jury member or reviewer, follow this sequence:
-
-1. **Read the principle.** → [Scientific Method](#scientific-method)
-2. **Check the numbers.** → [Key Results](#key-results)
-3. **Run the verification.** → `python verified/nwp/diagnostic.py`
-4. **Open the dashboard.** → http://localhost:5173/dashboard
-5. **Click through the map.** → Region → District → Forecast horizon
-6. **Read the limitations.** → [Limitations](#limitations-documented-honestly)
-7. **Check the code structure.** → [Repository Structure](#repository-structure)
-
-Everything else is detail.
-
----
-
 ## Scientific Method
 
 > **Forecast only from information that was available when the forecast was issued.**
