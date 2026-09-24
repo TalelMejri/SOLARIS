@@ -24,22 +24,17 @@ PESTGM / TSYP 14 — OC Track 1 · September 2026
 
 ## Overview
 
-**Prosol Forecast / Solaris** is a full-stack AI platform that forecasts
-rooftop photovoltaic (PV) production across Tunisia's 50 Prosol districts,
-quantifies uncertainty through P10 / P50 / P90 prediction intervals, and
-translates those forecasts into grid-impact indicators and battery
-decision-support simulations.
+**Prosol Forecast / Solaris** is a full-stack AI platform that forecasts rooftop photovoltaic (PV) production across Tunisia's 50 Prosol districts, quantifies uncertainty through P10 / P50 / P90 prediction intervals, and translates those forecasts into grid-impact indicators and battery decision-support simulations.
 
 The project combines:
 
 - **Official Prosol capacity data** — 50 districts, 7 regions, 514.8 MW installed
-- **PVGIS historical PV reconstruction** — 2005–2023, 8.33M hourly records
+- **PVGIS historical PV reconstruction** — 2005 to 2023, 8.33M hourly records
 - **Genuine ECMWF TIGGE numerical weather prediction (NWP)** forecasts
 - **Leakage-safe machine learning** — LightGBM, quantile regression
 - **A three-tier, production-ready software platform**
 
-> **Scientific principle.** Forecast only from information that was available
-> when the forecast was issued. This is enforced at every stage of the pipeline.
+> **Scientific principle.** Forecast only from information that was available when the forecast was issued. This is enforced at every stage of the pipeline.
 
 ---
 
@@ -72,9 +67,7 @@ python verified/nwp/diagnostic.py
 |:---:|:---:|
 | ![Forecast](docs/screenshots/forecast.png) | ![Battery](docs/screenshots/battery.png) |
 
-> Screenshots are captured from the verified 2022 test-set window,
-> not from a live API call. Every number is reproducible with the
-> pipeline scripts.
+> Screenshots are captured from the verified 2022 test-set window, not from a live API call. Every number is reproducible with the pipeline scripts.
 
 ---
 
@@ -128,8 +121,7 @@ VITE_AUTH_URL=http://localhost:8000
 
 Open **http://localhost:5173/dashboard**.
 
-> **Expected startup time.** Under 3 minutes on a clean machine, assuming
-> Python, Node, PHP, and a database are already installed.
+> **Expected startup time.** Under 3 minutes on a clean machine, assuming Python, Node, PHP, and a database are already installed.
 
 ---
 
@@ -137,13 +129,13 @@ Open **http://localhost:5173/dashboard**.
 
 If you are a jury member or reviewer, follow this sequence:
 
-1. **Read the principle.** → [Scientific Method](#scientific-method).
-2. **Check the numbers.** → [Key Results](#key-results).
-3. **Run the verification.** → `python verified/nwp/diagnostic.py`.
-4. **Open the dashboard.** → http://localhost:5173/dashboard.
-5. **Click through the map.** → Region → District → Forecast horizon.
-6. **Read the limitations.** → [Limitations](#limitations-documented-honestly).
-7. **Check the code structure.** → [Repository Structure](#repository-structure).
+1. **Read the principle.** → [Scientific Method](#scientific-method)
+2. **Check the numbers.** → [Key Results](#key-results)
+3. **Run the verification.** → `python verified/nwp/diagnostic.py`
+4. **Open the dashboard.** → http://localhost:5173/dashboard
+5. **Click through the map.** → Region → District → Forecast horizon
+6. **Read the limitations.** → [Limitations](#limitations-documented-honestly)
+7. **Check the code structure.** → [Repository Structure](#repository-structure)
 
 Everything else is detail.
 
@@ -159,8 +151,7 @@ Enforced at every stage:
 - NWP inputs are archived forecasts with an explicit **issue time** and **valid time**.
 - Actual weather at the forecast-valid time is never used as an input.
 - PVGIS reconstruction is never described as measured STEG production.
-- Grid-impact and battery outputs are explicitly labeled as decision-support
-  simulations, not operational measurements.
+- Grid-impact and battery outputs are explicitly labeled as decision-support simulations, not operational measurements.
 
 ---
 
@@ -168,54 +159,58 @@ Enforced at every stage:
 
 ```text
                     PROSOL INSTALLATIONS
-                            │
-                            ▼
+                            |
+                            v
                 District installed capacity
-                            │
-                            ▼
+                            |
+                            v
                          PVGIS
-                            │
-                            ▼
+                            |
+                            v
                Historical PV reconstruction
-                            │
-                            ▼
+                            |
+                            v
               Leakage-safe feature engineering
-                            │
-        ┌───────────────────┴───────────────────┐
-        ▼                                       ▼
+                            |
+        +-------------------+-------------------+
+        |                                       |
+        v                                       v
 Historical PV behavior                  ECMWF TIGGE NWP
-        │                                       │
-        └───────────────────┬───────────────────┘
-                            ▼
+        |                                       |
+        +-------------------+-------------------+
+                            |
+                            v
                        LightGBM
-                            │
-                            ▼
+                            |
+                            v
               Multi-horizon forecasting
-                            │
-             ┌──────────────┼──────────────┐
-             ▼              ▼              ▼
+                            |
+             +--------------+--------------+
+             |              |              |
+             v              v              v
             P10            P50            P90
-             │              │              │
-             └──────────────┼──────────────┘
-                            ▼
+             |              |              |
+             +--------------+--------------+
+                            |
+                            v
                      District MW
-                            │
-                            ▼
+                            |
+                            v
                        50 districts
-                            │
-                            ▼
+                            |
+                            v
                         7 regions
-                            │
-                            ▼
+                            |
+                            v
                      National Tunisia
-                            │
-                            ▼
+                            |
+                            v
                   Grid impact indicators
-                            │
-                            ▼
+                            |
+                            v
                 Battery decision support
-                            │
-                            ▼
+                            |
+                            v
                  Full-stack dashboard
 ```
 
@@ -225,24 +220,24 @@ Historical PV behavior                  ECMWF TIGGE NWP
 
 | Phase | Deliverable | Status |
 |---|---|:---:|
-| 1 | Data foundation — 50 districts, 7 regions, Prosol capacity | ✅ |
-| 2 | PVGIS historical reconstruction — 8.33M rows | ✅ |
-| 3 | Leakage-safe feature engineering — 52 features | ✅ |
-| 4.1 | Deterministic LightGBM — R² = 0.9662 | ✅ |
-| 4.2 | Probabilistic P10 / P50 / P90 — 80.43% coverage | ✅ |
-| 5.1 | Multi-horizon forecasting, H+1 → H+72 | ✅ |
-| 5.2 | Genuine ECMWF TIGGE NWP integration | ✅ |
-| 5.3 | District → region → national aggregation | ✅ |
-| 6.1 | Grid-impact indicators | ✅ |
-| 6.2 | Battery decision support | ✅ |
-| 7 | Full-stack platform (FastAPI + Laravel + React) | ✅ |
+| 1 | Data foundation — 50 districts, 7 regions, Prosol capacity | Passed |
+| 2 | PVGIS historical reconstruction — 8.33M rows | Passed |
+| 3 | Leakage-safe feature engineering — 52 features | Passed |
+| 4.1 | Deterministic LightGBM — R² = 0.9662 | Passed |
+| 4.2 | Probabilistic P10 / P50 / P90 — 80.43% coverage | Passed |
+| 5.1 | Multi-horizon forecasting, H+1 to H+72 | Passed |
+| 5.2 | Genuine ECMWF TIGGE NWP integration | Passed |
+| 5.3 | District to region to national aggregation | Passed |
+| 6.1 | Grid-impact indicators | Passed |
+| 6.2 | Battery decision support | Passed |
+| 7 | Full-stack platform (FastAPI + Laravel + React) | Passed |
 
 ---
 
 ## Technology Stack
 
 <details>
-<summary><strong>Machine Learning & Data</strong></summary>
+<summary><strong>Machine Learning and Data</strong></summary>
 
 | Component | Technology | Purpose |
 |---|---|---|
@@ -298,116 +293,116 @@ Historical PV behavior                  ECMWF TIGGE NWP
 
 ```text
 prosol-forecast/
-├── README.md
-├── requirements.txt
-├── package.json
-├── .gitignore
-├── .gitattributes
-│
-├── api/                          # FastAPI ML backend
-│   ├── main.py
-│   ├── config.py
-│   ├── routers/
-│   │   ├── forecast.py
-│   │   ├── districts.py
-│   │   ├── regions.py
-│   │   ├── grid.py
-│   │   ├── battery.py
-│   │   └── methodology.py
-│   └── services/
-│       └── data_loader.py
-│
-├── laravel-auth/                 # Laravel auth backend
-│   ├── app/
-│   │   ├── Http/
-│   │   │   ├── Controllers/AuthController.php
-│   │   │   ├── Middleware/InjectJwtFromCookie.php
-│   │   │   └── Requests/StoreUserRequest.php
-│   │   └── Models/
-│   │       ├── User.php
-│   │       └── RefreshToken.php
-│   ├── routes/api.php
-│   ├── config/
-│   │   ├── jwt.php
-│   │   └── cors.php
-│   └── database/migrations/
-│       ├── create_users_table.php
-│       └── create_refresh_tokens_table.php
-│
-├── data/
-│   ├── reference/
-│   │   ├── district_coordinates.csv
-│   │   ├── district_region_mapping.csv
-│   │   └── regions.csv
-│   ├── pv_registry/
-│   │   └── pv_registry.csv
-│   └── processed/
-│       ├── prosol_district_capacity.csv
-│       └── (generated artifacts — not committed)
-│
-├── scripts/nwp/                  # ML pipeline scripts
-│   ├── 11_download_tigge_full.py
-│   ├── 11b_download_tigge_12z.py
-│   ├── 12_validate_tigge_grib.py
-│   ├── 13_parse_tigge_all.py
-│   ├── 14_build_phase52_dataset.py
-│   ├── 15_phase51r_baseline.py
-│   ├── 16_phase52_nwp.py
-│   ├── 17_compare.py
-│   ├── 18_feature_importance.py
-│   ├── 19_district_analysis.py
-│   ├── 20_phase53_aggregate.py
-│   ├── 21_phase61_grid_impact.py
-│   ├── 22_phase62_battery.py
-│   ├── 24_phase52_quantile.py
-│   ├── 24b_calibrate_quantiles.py
-│   └── 25_phase53_quantile_aggregate.py
-│
-├── verified/
-│   └── nwp/
-│       └── diagnostic.py         # 18-check verification suite
-│
-├── web/                          # React frontend
-│   ├── src/
-│   │   ├── app/
-│   │   ├── components/dashboard/
-│   │   │   ├── ForecastChart.tsx
-│   │   │   ├── ForecastMap.tsx
-│   │   │   ├── ForecastBentoGrid.tsx
-│   │   │   ├── GridKPICards.tsx
-│   │   │   ├── WeatherModelStrip.tsx
-│   │   │   ├── AlertFeed.tsx
-│   │   │   ├── ZoneStatusTable.tsx
-│   │   │   ├── LoadSolarBalanceChart.tsx
-│   │   │   ├── RampRateChart.tsx
-│   │   │   ├── InstallationKPICards.tsx
-│   │   │   └── InstallationTable.tsx
-│   │   ├── hooks/
-│   │   │   ├── useDashboardData.ts
-│   │   │   └── useWeatherModelStrip.ts
-│   │   ├── lib/axios.ts
-│   │   ├── services/auth/
-│   │   │   ├── auth_service.ts
-│   │   │   └── auth_types.ts
-│   │   ├── store/
-│   │   │   ├── authSlice.ts
-│   │   │   ├── hooks.ts
-│   │   │   └── index.ts
-│   │   ├── i18n/
-│   │   │   ├── index.ts
-│   │   │   └── locales/{en,fr,ar}.json
-│   │   └── types/
-│   │       ├── grid.ts
-│   │       ├── Tunisiageo.ts
-│   │       └── useDark.ts
-│   ├── public/
-│   ├── package.json
-│   └── vite.config.ts
-│
-└── docs/
-    ├── methodology.md
-    ├── results.md
-    └── limitations.md
+|-- README.md
+|-- requirements.txt
+|-- package.json
+|-- .gitignore
+|-- .gitattributes
+|
+|-- api/                          # FastAPI ML backend
+|   |-- main.py
+|   |-- config.py
+|   |-- routers/
+|   |   |-- forecast.py
+|   |   |-- districts.py
+|   |   |-- regions.py
+|   |   |-- grid.py
+|   |   |-- battery.py
+|   |   `-- methodology.py
+|   `-- services/
+|       `-- data_loader.py
+|
+|-- laravel-auth/                 # Laravel auth backend
+|   |-- app/
+|   |   |-- Http/
+|   |   |   |-- Controllers/AuthController.php
+|   |   |   |-- Middleware/InjectJwtFromCookie.php
+|   |   |   `-- Requests/StoreUserRequest.php
+|   |   `-- Models/
+|   |       |-- User.php
+|   |       `-- RefreshToken.php
+|   |-- routes/api.php
+|   |-- config/
+|   |   |-- jwt.php
+|   |   `-- cors.php
+|   `-- database/migrations/
+|       |-- create_users_table.php
+|       `-- create_refresh_tokens_table.php
+|
+|-- data/
+|   |-- reference/
+|   |   |-- district_coordinates.csv
+|   |   |-- district_region_mapping.csv
+|   |   `-- regions.csv
+|   |-- pv_registry/
+|   |   `-- pv_registry.csv
+|   `-- processed/
+|       |-- prosol_district_capacity.csv
+|       `-- (generated artifacts, not committed)
+|
+|-- scripts/nwp/                  # ML pipeline scripts
+|   |-- 11_download_tigge_full.py
+|   |-- 11b_download_tigge_12z.py
+|   |-- 12_validate_tigge_grib.py
+|   |-- 13_parse_tigge_all.py
+|   |-- 14_build_phase52_dataset.py
+|   |-- 15_phase51r_baseline.py
+|   |-- 16_phase52_nwp.py
+|   |-- 17_compare.py
+|   |-- 18_feature_importance.py
+|   |-- 19_district_analysis.py
+|   |-- 20_phase53_aggregate.py
+|   |-- 21_phase61_grid_impact.py
+|   |-- 22_phase62_battery.py
+|   |-- 24_phase52_quantile.py
+|   |-- 24b_calibrate_quantiles.py
+|   `-- 25_phase53_quantile_aggregate.py
+|
+|-- verified/
+|   `-- nwp/
+|       `-- diagnostic.py         # 18-check verification suite
+|
+|-- web/                          # React frontend
+|   |-- src/
+|   |   |-- app/
+|   |   |-- components/dashboard/
+|   |   |   |-- ForecastChart.tsx
+|   |   |   |-- ForecastMap.tsx
+|   |   |   |-- ForecastBentoGrid.tsx
+|   |   |   |-- GridKPICards.tsx
+|   |   |   |-- WeatherModelStrip.tsx
+|   |   |   |-- AlertFeed.tsx
+|   |   |   |-- ZoneStatusTable.tsx
+|   |   |   |-- LoadSolarBalanceChart.tsx
+|   |   |   |-- RampRateChart.tsx
+|   |   |   |-- InstallationKPICards.tsx
+|   |   |   `-- InstallationTable.tsx
+|   |   |-- hooks/
+|   |   |   |-- useDashboardData.ts
+|   |   |   `-- useWeatherModelStrip.ts
+|   |   |-- lib/axios.ts
+|   |   |-- services/auth/
+|   |   |   |-- auth_service.ts
+|   |   |   `-- auth_types.ts
+|   |   |-- store/
+|   |   |   |-- authSlice.ts
+|   |   |   |-- hooks.ts
+|   |   |   `-- index.ts
+|   |   |-- i18n/
+|   |   |   |-- index.ts
+|   |   |   `-- locales/{en,fr,ar}.json
+|   |   `-- types/
+|   |       |-- grid.ts
+|   |       |-- Tunisiageo.ts
+|   |       `-- useDark.ts
+|   |-- public/
+|   |-- package.json
+|   `-- vite.config.ts
+|
+`-- docs/
+    |-- methodology.md
+    |-- results.md
+    `-- limitations.md
 ```
 
 </details>
@@ -420,36 +415,36 @@ prosol-forecast/
 <summary><strong>Show the 9-step pipeline</strong></summary>
 
 ```bash
-# Step 1 — Download the TIGGE archive
+# Step 1 - Download the TIGGE archive
 python scripts/nwp/11_download_tigge_full.py
 python scripts/nwp/11b_download_tigge_12z.py
 
-# Step 2 — Validate all 59 GRIB files
+# Step 2 - Validate all 59 GRIB files
 python scripts/nwp/12_validate_tigge_grib.py
 
-# Step 3 — Parse GRIBs into district-level forecasts
+# Step 3 - Parse GRIBs into district-level forecasts
 python scripts/nwp/13_parse_tigge_all.py
 
-# Step 4 — Build the Phase 5.2 training dataset
+# Step 4 - Build the Phase 5.2 training dataset
 python scripts/nwp/14_build_phase52_dataset.py
 
-# Step 5 — Train the baseline and NWP models
+# Step 5 - Train the baseline and NWP models
 python scripts/nwp/15_phase51r_baseline.py
 python scripts/nwp/16_phase52_nwp.py
 
-# Step 6 — Compare and verify
+# Step 6 - Compare and verify
 python scripts/nwp/17_compare.py
 python verified/nwp/diagnostic.py
 
-# Step 7 — Quantile training and calibration
+# Step 7 - Quantile training and calibration
 python scripts/nwp/24_phase52_quantile.py
 python scripts/nwp/24b_calibrate_quantiles.py
 
-# Step 8 — Aggregation
+# Step 8 - Aggregation
 python scripts/nwp/20_phase53_aggregate.py
 python scripts/nwp/25_phase53_quantile_aggregate.py
 
-# Step 9 — Grid impact and battery simulation
+# Step 9 - Grid impact and battery simulation
 python scripts/nwp/21_phase61_grid_impact.py
 python scripts/nwp/22_phase62_battery.py
 ```
@@ -488,8 +483,7 @@ python scripts/nwp/22_phase62_battery.py
 
 ## Verification
 
-Every result in this repository is independently verified. The diagnostic
-suite runs 18 checks against the pipeline outputs:
+Every result in this repository is independently verified. The diagnostic suite runs 18 checks against the pipeline outputs:
 
 ```bash
 python verified/nwp/diagnostic.py
@@ -499,7 +493,7 @@ Expected output:
 
 ```text
 Passed: 18/18
-PHASE 5.2 — VERIFIED
+PHASE 5.2 - VERIFIED
 ```
 
 The checks include:
@@ -518,21 +512,15 @@ The checks include:
 
 ## Limitations (Documented Honestly)
 
-> **We do not hide gaps.** Every limitation below is deliberately documented
-> so that no result can be misinterpreted.
+> **We do not hide gaps.** Every limitation below is deliberately documented so that no result can be misinterpreted.
 
 1. **The target is PVGIS-reconstructed**, not measured STEG rooftop production.
 2. **H+1 is unavailable** in the current NWP configuration — TIGGE is 6-hourly.
-3. **February 2019 is missing** due to an ECMWF tape hardware failure
-   (tape `J0018900`). The month is excluded, not fabricated.
+3. **February 2019 is missing** due to an ECMWF tape hardware failure (tape `J0018900`). The month is excluded, not fabricated.
 4. **Grid-impact indicators are proxies**, not actual STEG reserve requirements.
-5. **Battery results are decision-support simulations**, not actual STEG
-   battery fleet operations.
-6. **Empirical interval coverage exceeds the 80% nominal target** on the
-   held-out 2022 test set, due to distribution shift between the calibration
-   and validation windows. Over-coverage is the safe failure direction.
-7. **Regional capacity sums to 515.1 MW** while the headline Prosol snapshot
-   is 514.8 MW. The discrepancy is retained for traceability.
+5. **Battery results are decision-support simulations**, not actual STEG battery fleet operations.
+6. **Empirical interval coverage exceeds the 80% nominal target** on the held-out 2022 test set, due to distribution shift between the calibration and validation windows. Over-coverage is the safe failure direction.
+7. **Regional capacity sums to 515.1 MW** while the headline Prosol snapshot is 514.8 MW. The discrepancy is retained for traceability.
 
 ---
 
@@ -540,9 +528,9 @@ The checks include:
 
 | Source | Purpose | Coverage | Link |
 |---|---|---|---|
-| Prosol / STEG / ANME | Official capacity data | 2025–2026 | [prosol.tn](https://www.prosol.tn/) |
-| PVGIS 5.3 | Historical PV reconstruction | 2005–2023 | [re.jrc.ec.europa.eu](https://re.jrc.ec.europa.eu/pvg_tools/) |
-| ECMWF TIGGE | Genuine NWP forecasts | 2006–present | [ecmwf.int](https://www.ecmwf.int/en/forecasts/datasets/tigge) |
+| Prosol / STEG / ANME | Official capacity data | 2025-2026 | [prosol.tn](https://www.prosol.tn/) |
+| PVGIS 5.3 | Historical PV reconstruction | 2005-2023 | [re.jrc.ec.europa.eu](https://re.jrc.ec.europa.eu/pvg_tools/) |
+| ECMWF TIGGE | Genuine NWP forecasts | 2006-present | [ecmwf.int](https://www.ecmwf.int/en/forecasts/datasets/tigge) |
 
 ---
 
@@ -559,11 +547,9 @@ This project follows strict scientific discipline:
 - No invented Prosol district capacities.
 - No claim that simulations represent actual STEG operations.
 
-Every quantity in this project is one of the following, and is labeled
-accordingly wherever it appears:
+Every quantity in this project is one of the following, and is labeled accordingly wherever it appears:
 
-`observation` · `reconstruction` · `reanalysis` · `forecast` ·
-`model prediction` · `proxy` · `simulation`
+`observation` · `reconstruction` · `reanalysis` · `forecast` · `model prediction` · `proxy` · `simulation`
 
 ---
 
@@ -586,7 +572,7 @@ If you use this work, please cite:
             for Forecasting Rooftop Solar Production in Tunisia},
   author = {Prosol Forecast Team},
   year   = {2026},
-  note   = {PESTGM / TSYP 14 --- OC Track 1}
+  note   = {PESTGM / TSYP 14 - OC Track 1}
 }
 ```
 
@@ -595,5 +581,4 @@ If you use this work, please cite:
 - **STEG / ANME** — official Prosol capacity data
 - **European Commission Joint Research Centre** — PVGIS
 - **ECMWF** — TIGGE archive access
-- The open-source communities behind LightGBM, FastAPI, Laravel, React,
-  Redux, Three.js, and Recharts
+- The open-source communities behind LightGBM, FastAPI, Laravel, React, Redux, Three.js, and Recharts
