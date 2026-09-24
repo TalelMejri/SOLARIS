@@ -58,9 +58,9 @@ python verified/nwp/diagnostic.py
 
 ## Screenshots
 
-| Dashboard | Forecast Map |
+| Home | Forecast Map |
 |:---:|:---:|
-| ![Dashboard](docs/screenshots/dashboard.png) | ![Map](docs/screenshots/map.png) |
+| ![Home](img1.png) | ![Map](img2.png) |
 
 
 > Screenshots are captured from the verified 2022 test-set window, not from a live API call. Every number is reproducible with the pipeline scripts.
