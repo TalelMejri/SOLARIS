@@ -1,0 +1,402 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: 'Inter Variable', sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/*
+  Brand palette (hex → oklch approximate):
+  #eeeeee → oklch(0.945 0 0)
+  #000000 → oklch(0 0 0)
+  #1f6f5f → oklch(0.484 0.075 174.5)   (deep teal)
+  #ffb800 → oklch(0.822 0.171 84.6)    (solar yellow/amber)
+*/
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+  /* Primary = deep teal brand color */
+  --primary: oklch(0.484 0.075 174.5);
+  --primary-foreground: oklch(1 0 0);
+  /* Secondary = light grey (#eeeeee) */
+  --secondary: oklch(0.945 0 0);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.945 0 0);
+  --muted-foreground: oklch(0.45 0 0);
+  /* Accent = solar yellow (#ffb800) for highlights/CTAs */
+  --accent: oklch(0.822 0.171 84.6);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0 0);
+  --input: oklch(0.9 0 0);
+  --ring: oklch(0.484 0.075 174.5);
+  /* Charts use the brand palette */
+  --chart-1: oklch(0.484 0.075 174.5);
+  /* teal */
+  --chart-2: oklch(0.822 0.171 84.6);
+  /* yellow */
+  --chart-3: oklch(0.65 0.04 174.5);
+  /* muted teal */
+  --chart-4: oklch(0.75 0.1 84.6);
+  /* soft amber */
+  --chart-5: oklch(0.35 0.03 174.5);
+  /* dark teal */
+  --radius: 0.625rem;
+  --sidebar: oklch(0.945 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.484 0.075 174.5);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.822 0.171 84.6);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.9 0 0);
+  --sidebar-ring: oklch(0.484 0.075 174.5);
+}
+
+.dark {
+  --background: oklch(0 0 0);
+  --foreground: oklch(0.945 0 0);
+  --card: oklch(0.12 0 0);
+  --card-foreground: oklch(0.945 0 0);
+  --popover: oklch(0.12 0 0);
+  --popover-foreground: oklch(0.945 0 0);
+  /* Primary stays teal but brighter for contrast on dark */
+  --primary: oklch(0.6 0.09 174.5);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.2 0 0);
+  --secondary-foreground: oklch(0.945 0 0);
+  --muted: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  /* Accent yellow stays vibrant */
+  --accent: oklch(0.822 0.171 84.6);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.6 0.09 174.5);
+  --chart-1: oklch(0.6 0.09 174.5);
+  --chart-2: oklch(0.822 0.171 84.6);
+  --chart-3: oklch(0.7 0.05 174.5);
+  --chart-4: oklch(0.75 0.1 84.6);
+  --chart-5: oklch(0.45 0.04 174.5);
+  --sidebar: oklch(0.12 0 0);
+  --sidebar-foreground: oklch(0.945 0 0);
+  --sidebar-primary: oklch(0.6 0.09 174.5);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.822 0.171 84.6);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.6 0.09 174.5);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    @apply font-sans;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drawLine {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    opacity: .35;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: .7;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="animate-"] {
+    animation: none !important;
+  }
+}
+
+@layer components {
+
+  /* Elevated card surface */
+  .card-elevated {
+    @apply bg-card border border-border rounded-xl;
+    box-shadow:
+      0 1px 2px 0 oklch(0 0 0 / 0.03),
+      0 1px 3px 0 oklch(0 0 0 / 0.04);
+  }
+
+  .dark .card-elevated {
+    box-shadow:
+      0 1px 0 0 oklch(1 0 0 / 0.03) inset,
+      0 4px 24px -8px oklch(0 0 0 / 0.5);
+  }
+
+  /* Glass surface — mirrors the hero's translucent overlays */
+  .glass {
+    background: color-mix(in oklch, var(--card) 78%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  .dark .glass {
+    background: color-mix(in oklch, var(--card) 62%, transparent);
+  }
+
+  /* Sidebar/panel width transition */
+  .sidebar-transition {
+    transition: width 240ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Numeric alignment */
+  .font-tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  /* Grid backdrop */
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(to right, oklch(0 0 0 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0 0 0 / 0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .dark .bg-grid-pattern {
+    background-image:
+      linear-gradient(to right, oklch(1 0 0 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(1 0 0 / 0.035) 1px, transparent 1px);
+  }
+
+  /* Status pills — derived from hero palette (teal/amber + neutral) */
+  .bg-status-critical {
+    background-color: oklch(0.577 0.245 27.325 / 0.14);
+  }
+
+  .bg-status-warning {
+    background-color: color-mix(in oklch, var(--accent) 20%, transparent);
+  }
+
+  .bg-status-watch {
+    background-color: oklch(0.55 0.15 230 / 0.14);
+  }
+
+  .bg-status-normal {
+    background-color: color-mix(in oklch, var(--primary) 16%, transparent);
+  }
+
+  .text-status-critical {
+    color: oklch(0.577 0.245 27.325);
+  }
+
+  .dark .text-status-critical {
+    color: oklch(0.704 0.191 22.216);
+  }
+
+  .text-status-warning {
+    color: color-mix(in oklch, var(--accent) 70%, var(--foreground));
+  }
+
+  .text-status-watch {
+    color: oklch(0.55 0.15 230);
+  }
+
+  .dark .text-status-watch {
+    color: oklch(0.7 0.14 230);
+  }
+
+  /* Hero-style ambient glow blobs */
+  .glow-teal,
+  .glow-amber {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(72px);
+    pointer-events: none;
+    opacity: 0.55;
+  }
+
+  .glow-teal {
+    background: radial-gradient(circle, color-mix(in oklch, var(--primary) 45%, transparent), transparent 70%);
+  }
+
+  .glow-amber {
+    background: radial-gradient(circle, color-mix(in oklch, var(--accent) 40%, transparent), transparent 70%);
+  }
+
+  .dark .glow-teal {
+    opacity: 0.4;
+  }
+
+  .dark .glow-amber {
+    opacity: 0.32;
+  }
+
+  /* Chart aliases so existing Recharts code (var(--chart-primary)) resolves */
+  :root {
+    --chart-primary: var(--chart-1);
+    --chart-accent: var(--chart-2);
+  }
+
+  .dark {
+    --chart-primary: var(--chart-1);
+    --chart-accent: var(--chart-2);
+  }
+}
+
+@layer utilities {
+  .text-2xs {
+    font-size: 0.6875rem;
+    line-height: 1rem;
+  }
+
+  .pulse-amber {
+    animation: pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 400ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  /* Subtle amber halo used on the primary CTA */
+  .shadow-amber-glow {
+    box-shadow:
+      0 8px 24px -8px color-mix(in oklch, var(--accent) 45%, transparent),
+      0 0 0 1px color-mix(in oklch, var(--accent) 30%, transparent) inset;
+  }
+}
+
+/* In your global CSS */
+.card-elevated {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
+  background: color-mix(in oklch, var(--card) 92%, transparent);
+  backdrop-filter: blur(12px) saturate(140%);
+  box-shadow:
+    0 1px 0 0 color-mix(in oklch, white 6%, transparent) inset,
+    0 8px 24px -12px color-mix(in oklch, black 45%, transparent),
+    0 2px 6px -2px color-mix(in oklch, black 25%, transparent);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.card-elevated:hover {
+  border-color: color-mix(in oklch, var(--primary) 25%, var(--border));
+  box-shadow:
+    0 1px 0 0 color-mix(in oklch, white 8%, transparent) inset,
+    0 12px 32px -12px color-mix(in oklch, black 50%, transparent),
+    0 0 0 1px color-mix(in oklch, var(--primary) 8%, transparent);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up {
+    animation: none;
+  }
+}

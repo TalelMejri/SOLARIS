@@ -1,0 +1,25 @@
+# Data — do not commit large files
+data
+
+# But keep the small reference files
+!data/reference/*.csv
+!data/processed/prosol_district_capacity.csv
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+web/.next/
+web/dist/
+
+# Env
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
