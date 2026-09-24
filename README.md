@@ -551,26 +551,8 @@ Every quantity in this project is one of the following, and is labeled according
 
 ## Authors
 
-**Prosol Forecast Team**
-PESTGM / TSYP 14 — OC Track 1 · September 2026
-
-## License
-
-Released under the [MIT License](LICENSE).
-
-## Citation
-
-If you use this work, please cite:
-
-```bibtex
-@misc{prosol_forecast_2026,
-  title  = {Prosol Forecast / Solaris: National Intelligent Platform
-            for Forecasting Rooftop Solar Production in Tunisia},
-  author = {Prosol Forecast Team},
-  year   = {2026},
-  note   = {PESTGM / TSYP 14 - OC Track 1}
-}
-```
+**Solaris Team**
+ IEEE ENICarthage PES SBC
 
 ## Acknowledgements
 
