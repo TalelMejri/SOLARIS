@@ -5,10 +5,17 @@
 **A National Intelligent Platform for Forecasting Rooftop Solar Production in Tunisia**
 
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
-![Node](https://img.shields.io/badge/Node-20%2B-green)
-![PHP](https://img.shields.io/badge/PHP-8.2%2B-777bb4)
+![React](https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646cff?logo=vite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-3-38bdf8?logo=tailwindcss&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-11-ff2d20?logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2%2B-777bb4?logo=php&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
+![Node](https://img.shields.io/badge/Node-20%2B-339933?logo=node.js&logoColor=white)
+![Verified](https://img.shields.io/badge/verification-18%2F18-brightgreen)
+
 ![Verified](https://img.shields.io/badge/verification-18%2F18-brightgreen)
 
 [Overview](#overview) ·
