@@ -1,10 +1,9 @@
 <div align="center">
 
-# Prosol Forecast / Solaris
+#  Solaris
 
 **A National Intelligent Platform for Forecasting Rooftop Solar Production in Tunisia**
 
-PESTGM / TSYP 14 — OC Track 1 · September 2026
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
@@ -63,9 +62,6 @@ python verified/nwp/diagnostic.py
 |:---:|:---:|
 | ![Dashboard](docs/screenshots/dashboard.png) | ![Map](docs/screenshots/map.png) |
 
-| Forecast Chart (P10–P90) | Battery Simulation |
-|:---:|:---:|
-| ![Forecast](docs/screenshots/forecast.png) | ![Battery](docs/screenshots/battery.png) |
 
 > Screenshots are captured from the verified 2022 test-set window, not from a live API call. Every number is reproducible with the pipeline scripts.
 
