@@ -86,7 +86,7 @@ Three services. Three terminals. One command each.
 | Node.js | 20+ |
 | PHP | 8.2+ |
 | Composer | latest |
-| MySQL or PostgreSQL | recent |
+| MySQL  | recent |
 
 ### Terminal 1 — Laravel Auth Backend (port 8000)
 
